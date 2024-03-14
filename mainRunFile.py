@@ -87,18 +87,27 @@ def converter(insertedTime):
     minute = insertedTime[2] + insertedTime[3]
 
     minuteFraction = int(minute) / 60
-    if int(hour) < 12:
-        fixedHour = int(hour)
-    else:
-        fixedHour = int(hour) - 12
+    
 
-    fixedTime = fixedHour + minuteFraction
+    fixedTime = int(hour) + minuteFraction
     return fixedTime
 
 
 def Calculator(clockIn, clockOut):
     payPerHour = 11
+    
+    
+    #this doesnt include break
+    breakTime=0
+    if clockIn<12:
+        breakTime +=1
+    if clockOut>19.5:
+        breakTime+=1
+    totalHours = clockOut-clockIn-breakTime
+    payForDay=payPerHour*totalHours
+    
 
+    return payForDay
 
 # this variable is the current date; got it from CHATGPT
 # Its time is a class apparently,, will get back to that when i figure out the difference :)
@@ -116,4 +125,5 @@ clockOut = inputClockOut()
 clockInFixed = converter(clockIn)
 clockOutFixed = converter(clockOut)
 
-# print('Current Date: ',(currentDate))
+payForDay = Calculator(clockInFixed,clockOutFixed)
+print('$', payForDay)
