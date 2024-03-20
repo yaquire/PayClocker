@@ -1,14 +1,12 @@
 # This is meant to be used to have it so that every month, it creates a newfile (csv/other format) so that it easier to check, where it can also be made so that the info on wheter a week overlaps between two months, is pointed out & taken into account for the overlap.
 import datetime
+from re import split
 import string
 
 # this is for the first digit of the clockin & out; 1 in 1200
 possibleFirstFDigit = [0, 1, 2]
 possibleNextDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 possibleFMin = [0, 1, 2, 3, 4, 5, 6]
-
-
-print("This is a test")
 
 
 def newFileCreation():
@@ -48,7 +46,7 @@ def inputClocker(InOut):
                 print("~Please Enter a Valid Time~")
         else:
             print("Please Enter a 4 digit No.")
-    print(clocker)
+    # print(clocker)
 
     return clocker
 
@@ -83,9 +81,14 @@ def Calculator(clockIn, clockOut):
 currentDate = datetime.date.today()
 # this works, has been checked
 currentDate = str(currentDate)
-currentDateList = currentDate.split("-")
-print(currentDateList)
-fileName = "Month:" + currentDateList[-2] + " Year:" + currentDateList[0] + ".csv"
+currentDate = currentDate.split("-")
+
+print(currentDate)
+
+
+# File is YYYY-MM
+fileName = currentDate[1] + "-" + currentDate[0] + ".csv"
+print(fileName)
 
 openingExsistingFile(fileName)
 clockIn = inputClocker("In")
