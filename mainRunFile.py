@@ -2,6 +2,7 @@
 import datetime
 from re import split
 import string
+import csv
 
 # this is for the first digit of the clockin & out; 1 in 1200
 possibleFirstFDigit = [0, 1, 2]
@@ -18,9 +19,27 @@ def openingExsistingFile(fileName):
     try:
         with open(fileName, "r") as fileExisting:
             curentData = fileExisting.readlines
-            print("File Opened")
+            fileState = "File Opened"
+            print(fileState)
     except IOError:
-        print("File NOT exsist!")
+        fileState = "File NOT exsist"
+        print(fileState)
+
+    filepath = fileName
+    title = fileName[:-4]
+
+    if fileState == "File NOT exsist":
+        insertedPlaceholder = "This is a new file: " + title
+        with open(filepath, mode="w", newline="") as file:
+            file.writelines(insertedPlaceholder)
+        print("New File as been created")
+
+    else:
+        with open(filepath, mode="r") as file:
+            data = file.readlines()
+            print(data)
+
+    return fileState, title
 
 
 # This will check whether a new file has to be made or not!
@@ -76,6 +95,16 @@ def Calculator(clockIn, clockOut):
     return payForDay
 
 
+def fileEditor(fileName, payForDay, currentDate, clockInFixed, clockOutFixed):
+    print("File is going to be edited")
+    data_to_be_added = [currentDate, clockInFixed, clockOutFixed, payForDay]
+    data_to_be_added = str(data_to_be_added)
+    with open(fileName, mode="a") as file:
+        file.writelines(data_to_be_added)
+
+    file.close
+
+
 # this variable is the current date; got it from CHATGPT
 # Its time is a class apparently,, will get back to that when i figure out the difference :)
 currentDate = datetime.date.today()
@@ -90,12 +119,16 @@ print(currentDate)
 fileName = currentDate[1] + "-" + currentDate[0] + ".csv"
 print(fileName)
 
-openingExsistingFile(fileName)
+fileState, title = openingExsistingFile(fileName)
 clockIn = inputClocker("In")
 clockOut = inputClocker("Out")
+
+# print(fileState + "   " + title)
 
 clockInFixed = converter(clockIn)
 clockOutFixed = converter(clockOut)
 
 payForDay = Calculator(clockInFixed, clockOutFixed)
 print("$", payForDay)
+
+edit_of_File = fileEditor(fileName, payForDay, currentDate, clockInFixed, clockOutFixed)
