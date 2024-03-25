@@ -1,5 +1,6 @@
 # This is meant to be used to have it so that every month, it creates a newfile (csv/other format) so that it easier to check, where it can also be made so that the info on wheter a week overlaps between two months, is pointed out & taken into account for the overlap.
 import datetime
+from os import fork
 from re import split
 import string
 import csv
@@ -97,12 +98,17 @@ def Calculator(clockIn, clockOut):
 
 def fileEditor(fileName, payForDay, currentDate, clockInFixed, clockOutFixed):
     print("File is going to be edited")
-    data_to_be_added = [currentDate, clockInFixed, clockOutFixed, payForDay]
-    data_to_be_added = str(data_to_be_added)
-    with open(fileName, mode="a") as file:
+    currentDateFixed = f"{currentDate[-1]}-{currentDate[-2]}-{currentDate[-3]}"
+    data = [currentDateFixed, clockInFixed, clockOutFixed, payForDay]
+    data_to_be_added = ""
+    for item in data:
+        item = str(item)
+        data_to_be_added += f",{item}"
+    data_to_be_added = data_to_be_added[1:]
+    print(data_to_be_added)  # data_to_be_added = str(data_to_be_added)
+    with open(fileName, mode="a", newline="") as file:
         file.writelines(data_to_be_added)
-
-    file.close
+        file.close
 
 
 # this variable is the current date; got it from CHATGPT
