@@ -16,12 +16,32 @@ def newFileCreation():
     print("File Made: ")
 
 
+def constantFile():
+    constant_data = []
+    with open("constants.csv", "r") as file:
+        data = file.readlines()
+    file.close
+    # print("Data:", data)
+    for item in data:
+        item = item.split(",")
+        constant_data.append(item)
+
+    # print(constant_data)
+    for item in constant_data:
+        if item[0] == f"\n":
+            print(f"Please Input {item[0]}:")
+
+        else:
+            continue
+
+
 def openingExsistingFile(fileName):
     try:
-        with open(fileName, "r") as fileExisting:
-            curentData = fileExisting.readlines
+        with open(fileName, "r") as file:
+            testData = file.readlines
             fileState = "File Opened"
             print(fileState)
+        file.close
     except IOError:
         fileState = "File NOT exsist"
         print(fileState)
@@ -110,6 +130,8 @@ def fileEditor(fileName, payForDay, currentDate, clockInFixed, clockOutFixed):
         file.writelines(data_to_be_added)
         file.close
 
+
+fileCurrent = constantFile()
 
 # this variable is the current date; got it from CHATGPT
 # Its time is a class apparently,, will get back to that when i figure out the difference :)
