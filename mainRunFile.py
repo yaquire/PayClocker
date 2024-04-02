@@ -26,13 +26,12 @@ def constantFile():
         item = item.split(",")
         constant_data.append(item)
 
-    # print(constant_data)
+    print(constant_data)
     for item in constant_data:
-        if item[0] == f"\n":
+        while(item[1] == f"\n"):
             print(f"Please Input {item[0]}:")
+            if 
 
-        else:
-            continue
 
 
 def openingExsistingFile(fileName):
