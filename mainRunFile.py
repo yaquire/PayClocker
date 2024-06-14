@@ -16,7 +16,7 @@ def newFileCreation():
     print("File Made: ")
 
 
-def constantFile():
+"""def constantFile():
     constant_data = []
     with open("constants.csv", "r") as file:
         data = file.readlines()
@@ -31,7 +31,7 @@ def constantFile():
         while(item[1] == f"\n"):
             print(f"Please Input {item[0]}:")
             if 
-
+"""
 
 
 def openingExsistingFile(fileName):
@@ -130,7 +130,7 @@ def fileEditor(fileName, payForDay, currentDate, clockInFixed, clockOutFixed):
         file.close
 
 
-fileCurrent = constantFile()
+#fileCurrent = constantFile()
 
 # this variable is the current date; got it from CHATGPT
 # Its time is a class apparently,, will get back to that when i figure out the difference :)
